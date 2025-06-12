@@ -48,47 +48,49 @@ const Pagination = ({ currentPage, totalPages, baseUrl }: PaginationProps) => {
   };
 
   return (
-    <div className="flex justify-center items-center space-x-2 mt-8">
+    <div className="flex justify-center items-center gap-2 md:gap-4 mt-12 mb-8 px-4">
       {currentPage > 1 && (
         <Link
           to={getPageUrl(currentPage - 1)}
-          className="px-3 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="px-4 md:px-6 py-2 md:py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all hover:scale-105 font-medium"
         >
-          前へ
+          ← 前へ
         </Link>
       )}
 
-      {getPageNumbers().map((page, index) => {
-        if (page === '...') {
-          return (
-            <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-500">
-              ...
-            </span>
-          );
-        }
+      <div className="flex items-center gap-1 md:gap-2">
+        {getPageNumbers().map((page, index) => {
+          if (page === '...') {
+            return (
+              <span key={`ellipsis-${index}`} className="px-2 md:px-3 py-2 text-gray-500">
+                ...
+              </span>
+            );
+          }
 
-        const pageNum = page as number;
-        return (
-          <Link
-            key={pageNum}
-            to={getPageUrl(pageNum)}
-            className={`px-3 py-2 rounded-md transition-colors ${
-              currentPage === pageNum
-                ? 'bg-blue-600 text-white'
-                : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-            }`}
-          >
-            {pageNum}
-          </Link>
-        );
-      })}
+          const pageNum = page as number;
+          return (
+            <Link
+              key={pageNum}
+              to={getPageUrl(pageNum)}
+              className={`min-w-[40px] md:min-w-[48px] px-3 md:px-4 py-2 md:py-3 rounded-lg transition-all font-medium text-center ${
+                currentPage === pageNum
+                  ? 'bg-blue-600 text-white shadow-lg scale-110'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md hover:scale-105'
+              }`}
+            >
+              {pageNum}
+            </Link>
+          );
+        })}
+      </div>
 
       {currentPage < totalPages && (
         <Link
           to={getPageUrl(currentPage + 1)}
-          className="px-3 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="px-4 md:px-6 py-2 md:py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-all hover:scale-105 font-medium"
         >
-          次へ
+          次へ →
         </Link>
       )}
     </div>
