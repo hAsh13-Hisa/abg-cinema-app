@@ -8,7 +8,9 @@ interface PaginationProps {
 
 const Pagination = ({ currentPage, totalPages, baseUrl }: PaginationProps) => {
   const getPageUrl = (page: number) => {
-    return `${baseUrl}&page=${page}`;
+    // baseUrlに既に?が含まれているかチェック
+    const separator = baseUrl.includes('?') ? '&' : '?';
+    return `${baseUrl}${separator}page=${page}`;
   };
 
   const getPageNumbers = () => {
